@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+
+import json
+import sys
+import subprocess
+
+def good_name(f, s):
+    chapter = f[s["chapterOffset"]:s["chapterOffset"] + s["chapterLength"]]
+    if s["pageUntilEnd"]:
+        page = f[s["pageOffset"]:-4]
+    else:
+        page = f[s["pageOffset"]:s["pageOffset"] + s["pageLength"]]
+    extension = f[-4:]
+
+    return chapter + "-" + page + extension
+
+def main():
+    d = json.load(sys.stdin)
+    out = []
+    d_folder = d["destination"]
+    out.append(f"mkdir -p {d_folder}")
+    for source in d["sources"]:
+        s_folder = source["folder"]
+        files = subprocess.run(["ls", s_folder], capture_output = True).stdout.decode("UTF-8").split("\n")
+        for f in files:
+            if len(f) == 0:
+                continue
+            d_file = good_name(f, source)
+            out.append(f"cp {s_folder}{f} {d_folder}{d_file}")
+
+    for l in out:
+        print(l)
+
+if __name__ == "__main__":
+    main()
