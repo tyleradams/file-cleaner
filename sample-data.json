@@ -1,0 +1,13 @@
+{
+    "sources": [
+        {
+            "folder": "test/",
+            "chapterOffset": 5,
+            "chapterLength": 3,
+            "pageOffset": 14,
+            "pageLength": 2,
+            "pageUntilEnd": false
+        }
+    ],
+    "destination": "out/"
+}

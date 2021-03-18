@@ -20,13 +20,14 @@ def main():
     d_folder = d["destination"]
     out.append(f"mkdir -p {d_folder}")
     for source in d["sources"]:
-        s_folder = source["folder"]
-        files = subprocess.run(["ls", s_folder], capture_output = True).stdout.decode("UTF-8").split("\n")
-        for f in files:
-            if len(f) == 0:
-                continue
-            d_file = good_name(f, source)
-            out.append(f"cp {s_folder}{f} {d_folder}{d_file}")
+        for s_folder in source["folders"]:
+            files = subprocess.run(["ls", s_folder], capture_output = True).stdout.decode("UTF-8").split("\n")
+            for f in files:
+                # ls trailing newline means split add a zero length line at the end
+                if len(f) == 0:
+                    continue
+                d_file = good_name(f, source)
+                out.append(f"cp {s_folder}{f} {d_folder}{d_file}")
 
     for l in out:
         print(l)
