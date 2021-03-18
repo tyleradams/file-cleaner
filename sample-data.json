@@ -1,13 +1,15 @@
 {
-    "sources": [
-        {
-            "folder": "test/",
-            "chapterOffset": 5,
-            "chapterLength": 3,
-            "pageOffset": 14,
-            "pageLength": 2,
-            "pageUntilEnd": false
-        }
-    ],
-    "destination": "out/"
+  "destination": "out/",
+  "sources": [
+    {
+      "chapterLength": 3,
+      "chapterOffset": 5,
+      "folders": [
+        "test/"
+      ],
+      "pageLength": 2,
+      "pageOffset": 14,
+      "pageUntilEnd": false
+    }
+  ]
 }
